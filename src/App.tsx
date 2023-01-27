@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -6,8 +6,8 @@ import MovieList from './components/MovieList.js';
 import MovieListHeading from './components/MovieListHeading.js';
 import Favorites from './components/Favorites.js';
 import RemoveFavorites from './components/RemoveFavorites.js';
-import SearchBox from './components/SearchBox.js';
-import { API_KEY } from './components/secrets.js';
+import SearchBox from './components/SearchBox';
+import { API_KEY } from './components/secrets';
 
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
@@ -50,13 +50,8 @@ const App = () => {
     if (data.results) {
 			setMovies(data.results);
 		}
-    console.log("Fetching movies!");
-    console.log(data.results);
+    console.log("enter to the fetch");
   };
-  
-  // useEffect(() => {
-  //   getMovieList(searchValue);
-  // }, [searchValue]);
 
   const addFavouriteClick = (movie: moviesTypes) => {
     const newFavouriteList: any = [...favourites, movie];
@@ -76,13 +71,21 @@ const App = () => {
         <SearchBox onChangeGetMovieList={getMovieList} />
       </div>
       <div className="row">
-        <MovieList movies={movies} handleFavoutireClick={addFavouriteClick} favoriteComponent={Favorites} />
+        <MovieList
+          movies={movies}
+          handleFavoutireClick={addFavouriteClick}
+          favoriteComponent={Favorites}
+        />
       </div>
       <div className="row d-flex align-items-center my-4">
         <MovieListHeading heading='My favorites' />
       </div>
       <div className="row">
-        <MovieList movies={favourites} handleFavoutireClick={removeFavouriteClick} favoriteComponent={RemoveFavorites} />
+        <MovieList
+          movies={favourites}
+          handleFavoutireClick={removeFavouriteClick}
+          favoriteComponent={RemoveFavorites}
+        />
       </div>
     </div>
   )
